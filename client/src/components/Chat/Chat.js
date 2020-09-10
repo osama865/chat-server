@@ -4,7 +4,7 @@ import queryString from "query-string";
 import io from "socket.io-client";
 import "./chat.css";
 
-// import TextContainer from '../TextContainer/TextContainer';
+import TextContainer from "../TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
@@ -34,13 +34,9 @@ const Chat = ({ location }) => {
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
-    socket.on(
-      "message",
-      message => {
-        setMessages(messages => [...messages, message]);
-      },
-      [messages]
-    );
+    socket.on("message", message => {
+      setMessages(messages => [...messages, message]);
+    });
 
     socket.on("roomData", ({ users }) => {
       setUsers(users);
@@ -66,7 +62,7 @@ const Chat = ({ location }) => {
           sendMessage={sendMessage}
         />
       </div>
-      {/* <TextContainer users={users}/> */}
+      <TextContainer users={users} />
     </div>
   );
 };
